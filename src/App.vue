@@ -4,8 +4,8 @@
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
           <ion-list id="inbox-list">
-            <ion-list-header>Inbox</ion-list-header>
-            <ion-note>hi@ionicframework.com</ion-note>
+            <ion-list-header>Rodolfo Canelon</ion-list-header>
+            <ion-note>rodolfo.canelon@ucentral.cl</ion-note>
   
             <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages" :key="i">
               <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
@@ -16,12 +16,19 @@
           </ion-list>
   
           <ion-list id="labels-list">
-            <ion-list-header>Labels</ion-list-header>
-  
-            <ion-item v-for="(label, index) in labels" lines="none" :key="index">
+            <!-- <ion-list-header>Labels</ion-list-header> -->
+
+            <ion-menu-toggle auto-hide="false" >
+              <ion-item router-direction="root" router-link="/folder/Inbox" lines="none" detail="false" class="hydrated" >
+              <ion-icon slot="start" ios="settingsOutline" md="settingsOutline"></ion-icon>
+              <ion-label>Configuración</ion-label>
+            </ion-item>
+            </ion-menu-toggle>
+            
+            <!-- <ion-item v-for="(label, index) in labels" lines="none" :key="index">
               <ion-icon slot="start" :ios="bookmarkOutline" :md="bookmarkSharp"></ion-icon>
               <ion-label>{{ label }}</ion-label>
-            </ion-item>
+            </ion-item> -->
           </ion-list>
         </ion-content>
       </ion-menu>
@@ -34,7 +41,7 @@
 import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { archiveOutline, archiveSharp, book, bookmarkOutline, bookmarkSharp, bookOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, settingsOutline, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
 
 export default defineComponent({
   name: 'App',
@@ -56,43 +63,37 @@ export default defineComponent({
     const selectedIndex = ref(0);
     const appPages = [
       {
-        title: 'Inbox',
+        title: 'Complijidad de Algoritmos',
         url: '/folder/Inbox',
-        iosIcon: mailOutline,
-        mdIcon: mailSharp
-      },
+        iosIcon: bookOutline,       
+        mdIcon: bookOutline,    },
       {
-        title: 'Outbox',
+        title: 'Programación de Aplicaciones',
         url: '/folder/Outbox',
-        iosIcon: paperPlaneOutline,
-        mdIcon: paperPlaneSharp
-      },
+        iosIcon: bookOutline,       
+        mdIcon: bookOutline,    },
       {
-        title: 'Favorites',
+        title: 'Ing. Software',
         url: '/folder/Favorites',
-        iosIcon: heartOutline,
-        mdIcon: heartSharp
-      },
+        iosIcon: bookOutline,       
+        mdIcon: bookOutline,    },
       {
-        title: 'Archived',
+        title: 'Progamación Computacional',
         url: '/folder/Archived',
-        iosIcon: archiveOutline,
-        mdIcon: archiveSharp
-      },
-      {
+        iosIcon: bookOutline,
+        mdIcon: bookOutline,     },
+      /* {
         title: 'Trash',
         url: '/folder/Trash',
-        iosIcon: trashOutline,
-        mdIcon: trashSharp
-      },
+        iosIcon: bookOutline,        
+        mdIcon: bookOutline,   },
       {
         title: 'Spam',
         url: '/folder/Spam',
-        iosIcon: warningOutline,
-        mdIcon: warningSharp
-      }
+        iosIcon: bookOutline,
+        mdIcon: bookOutline,     } */
     ];
-    const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+    //const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
     
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
@@ -104,7 +105,7 @@ export default defineComponent({
     return { 
       selectedIndex,
       appPages, 
-      labels,
+      //labels,
       archiveOutline, 
       archiveSharp, 
       bookmarkOutline, 
