@@ -1,0 +1,7 @@
+{
+  "name": "sirf_lab1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
