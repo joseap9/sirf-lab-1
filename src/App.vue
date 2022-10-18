@@ -1,5 +1,8 @@
 <template>
-  <ion-app> ngfchgjfhg
+  
+  <ion-app>
+    <ion-button>Custom Button</ion-button>
+
     <ion-split-pane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
@@ -17,6 +20,7 @@
   
           <ion-list id="labels-list">
             <!-- <ion-list-header>Labels</ion-list-header> -->
+          
 
             <ion-menu-toggle auto-hide="false" >
               <ion-item router-direction="root" router-link="/folder/Inbox" lines="none" detail="false" class="hydrated" >
@@ -38,6 +42,7 @@
 </template>
 
 <script lang="ts">
+import { IonButton } from '@ionic/vue';
 import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -64,22 +69,27 @@ export default defineComponent({
     const appPages = [
       {
         title: 'Complijidad de Algoritmos',
-        url: '/folder/Inbox',
+        url: '/folder/Complijidad de Algoritmos',
         iosIcon: bookOutline,       
         mdIcon: bookOutline,    },
       {
-        title: 'Programación de Aplicaciones',
-        url: '/folder/Outbox',
+        title: 'Programacion de Aplicaciones',
+        url: '/folder/Programacion de Aplicaciones',
         iosIcon: bookOutline,       
         mdIcon: bookOutline,    },
       {
         title: 'Ing. Software',
-        url: '/folder/Favorites',
+        url: '/folder/Ing. Software',
         iosIcon: bookOutline,       
         mdIcon: bookOutline,    },
       {
         title: 'Progamación Computacional',
-        url: '/folder/Archived',
+        url: '/folder/Progamación Computacional',
+        iosIcon: bookOutline,
+        mdIcon: bookOutline,     },
+        {
+        title: 'SIRF',
+        url: '/folder/SIRF',
         iosIcon: bookOutline,
         mdIcon: bookOutline,     },
       /* {
@@ -127,6 +137,26 @@ export default defineComponent({
 </script>
 
 <style scoped>
+ ion-button {
+    --background: #93e9be;
+    --background-hover: #9ce0be;
+    --background-activated: #88f4be;
+    --background-focused: #88f4be;
+
+    --color: blue;
+
+    --border-radius: 0;
+    --border-color: #000;
+    --border-style: solid;
+    --border-width: 1px;
+
+    --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
+
+    --ripple-color: deeppink;
+
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+  }
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
