@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
+import Login from '../views/LoginView.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -13,6 +14,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/folder/SIRF',
     component: () => import ('../views/PrincipalView.vue')
+  },
+  {
+    path: '/login',
+    component: Login
   }
 ]
 
