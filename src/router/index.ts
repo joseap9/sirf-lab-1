@@ -1,19 +1,25 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
+import PrincipalView from '../views/PrincipalView.vue';
+import CursoView from '../views/CursoView.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '',
-    component: () => import ('../views/PrincipalView.vue')
+    path: '/',
+    component: PrincipalView
   },
   {
-    path: '/folder/:id',
+    path: '/sirf',
+    component: PrincipalView
+  },
+  {
+    path: '/curso/:nombre',
+    component: CursoView
+  },
+  {
+    path: '/:id',
     component: () => import ('../views/FolderPage.vue')
   },
-  {
-    path: '/folder/SIRF',
-    component: () => import ('../views/PrincipalView.vue')
-  }
 ]
 
 const router = createRouter({

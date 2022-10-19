@@ -13,7 +13,7 @@
       <div v-for="item in dataCursos" :key="item.id">
         <ion-card color="light">
           <ion-card-header>
-            <ion-card-title>{{item.nombre}}</ion-card-title>
+            <ion-card-title router-direction="root" :router-link="/curso/+item.nombre">{{item.nombre}}</ion-card-title>
           </ion-card-header>
 
           <ion-card-content>
@@ -30,15 +30,22 @@
 </template>
   
 <script lang="ts">
-    import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle } from '@ionic/vue';
+    import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle} from '@ionic/vue';
     import { defineComponent, ref } from 'vue';
     import { Curso } from "@/interfaces/Curso";
+    import { useRoute } from 'vue-router';
     
     export default defineComponent({
       components: { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle },
       setup(){
-        const dataCursos = ref<Curso[]>([{id:123,nombre:"Complejidad Algoritmos",total:43}, {id:456,nombre:"Ing Software",total: 38}]);
-        return { dataCursos }
+        const dataCursos = ref<Curso[]>([
+          {id:123,nombre:"Complejidad Algoritmos",total:43}, 
+          {id:456,nombre:"Ing Software",total: 38},
+          {id:678,nombre:"Programacion Computacional",total: 38}
+        ]);
+        const route = useRoute();
+        const nombre = route.params.nombre;
+        return { dataCursos, nombre }
       }
     });
 </script>

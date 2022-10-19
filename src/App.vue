@@ -42,7 +42,7 @@
 </template>
 
 <script lang="ts">
-import { IonButton } from '@ionic/vue';
+//import { IonButton } from '@ionic/vue';
 import { IonApp, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import { useRoute } from 'vue-router';
@@ -68,28 +68,28 @@ export default defineComponent({
     const selectedIndex = ref(0);
     const appPages = [
       {
-        title: 'Complijidad de Algoritmos',
-        url: '/folder/Complijidad de Algoritmos',
+        title: 'Complejidad de Algoritmos',
+        url: '/Complejidad de Algoritmos',
         iosIcon: bookOutline,       
         mdIcon: bookOutline,    },
       {
         title: 'Programacion de Aplicaciones',
-        url: '/folder/Programacion de Aplicaciones',
+        url: '/Programacion de Aplicaciones',
         iosIcon: bookOutline,       
         mdIcon: bookOutline,    },
       {
         title: 'Ing. Software',
-        url: '/folder/Ing. Software',
+        url: '/Ing. Software',
         iosIcon: bookOutline,       
         mdIcon: bookOutline,    },
       {
         title: 'Progamación Computacional',
-        url: '/folder/Progamación Computacional',
+        url: '/Progamación Computacional',
         iosIcon: bookOutline,
         mdIcon: bookOutline,     },
         {
         title: 'SIRF',
-        url: '/folder/SIRF',
+        url: '/SIRF',
         iosIcon: bookOutline,
         mdIcon: bookOutline,     },
       /* {
@@ -105,7 +105,7 @@ export default defineComponent({
     ];
     //const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
     
-    const path = window.location.pathname.split('folder/')[1];
+    const path = window.location.pathname.split('/')[1];
     if (path !== undefined) {
       selectedIndex.value = appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
