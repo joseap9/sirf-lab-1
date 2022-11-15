@@ -30,13 +30,13 @@
 </template>
   
 <script lang="ts">
-    import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle} from '@ionic/vue';
+    import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar} from '@ionic/vue';
     import { defineComponent, ref } from 'vue';
     import { Curso } from "@/interfaces/Curso";
     import { useRoute } from 'vue-router';
     
     export default defineComponent({
-      components: { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle },
+      components: { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton},
       setup(){
         const dataCursos = ref<Curso[]>([
           {id:123,nombre:"Complejidad Algoritmos",total:43}, 
