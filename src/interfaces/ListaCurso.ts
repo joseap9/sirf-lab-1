@@ -1,11 +1,11 @@
 import { Alumno } from "./Alumno";
-import { Curso } from "./Curso";
+import { Asistencia } from "./Asistencia";
 import { Profesor } from "./Profesor";
 
 export interface ListaCurso {
     id: number;
     fecha: string;
-    curso: Curso;
+    curso: Asistencia;
     profesor: Profesor;
     alumno: Alumno;
 }

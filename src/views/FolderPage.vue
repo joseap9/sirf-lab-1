@@ -20,13 +20,16 @@
         <strong class="capitalize">{{ $route.params.id }}</strong>
         <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
       </div>
+
     </ion-content>
   </ion-page>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { Profesor } from '@/interfaces/Profesor';
+import { getProfesor } from '@/services/ProfesorServices';
 
 export default defineComponent({
   name: 'FolderPage',
@@ -38,7 +41,29 @@ export default defineComponent({
     IonPage,
     IonTitle,
     IonToolbar
-  }
+  }/* ,
+  setup() {
+    const dataApi = ref<Profesor[]>([]);
+
+    const getData = async () => {
+      try {
+        const response = await getProfesor();
+        dataApi.value = response
+        
+        
+      } catch (error) {
+
+        console.log(error);
+        
+      }
+    }
+
+    onMounted( () => { getData() } );
+
+    return {
+      dataApi
+    }
+  } */
 });
 </script>
 

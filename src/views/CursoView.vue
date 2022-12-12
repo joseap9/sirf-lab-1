@@ -18,8 +18,13 @@
           </ion-card-header>
 
           <ion-card-content>
-            <apexchart type="donut" width="380" height="380" :options="chartOptions" :series="series"></apexchart>
-          </ion-card-content>
+            <div v-for="item in dataApiAsistencia" :key="item.id">
+              <apexchart type="donut" width="380" height="380" :options="chartOptions" :series=[item.asistentes,item.total_asignatura-item.asistentes]></apexchart>
+              <br/>
+              <h2>Asistentes: {{item.asistentes}}</h2>
+              <h2>Inasistentes: {{item.total_asignatura - item.asistentes}}</h2>
+            </div>
+            </ion-card-content>
 
         </ion-card>
         
@@ -55,26 +60,60 @@
     
 <script lang="ts">
 import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol, IonContent, IonGrid, IonHeader, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/vue';
-import { defineComponent, ref } from 'vue';
-import { Curso } from "@/interfaces/Curso";
+import { defineComponent, ref, onMounted } from 'vue';
+import { Asistencia } from "@/interfaces/Asistencia";
+import { getAsistenciaFecha } from '@/services/ProfesorServices';
+
 
 export default defineComponent({
   components: { IonCol, IonGrid, IonRow, IonPage, IonContent, IonHeader, IonButton, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonCard,IonCardHeader, IonCardContent, IonCardTitle },
   setup() {
 
-    const dataCursos = ref<Curso[]>([
-      { id: 123, nombre: "Complejidad Algoritmos", total: 43 },
-      { id: 456, nombre: "Ing Software", total: 38 },
-      { id: 678, nombre: "Programacion Computacional", total: 38 }
-    ]);
+    const dataApiAsistencia = ref<Asistencia[]>([]);
 
+    const getDataAsignatura = async () => {
+      const fecha = "22-11-09";
+      const nombre_asignatura = "programacion de aplicaciones";
+      try {
+        
+        const response = await getAsistenciaFecha(fecha, nombre_asignatura)
+        dataApiAsistencia.value = response;
+        
+        console.log(dataApiAsistencia.value);
+        
+      } catch (error) {
 
+        console.log(error);
+      }
+      }
 
-    return { dataCursos }
+    onMounted( () => { getDataAsignatura() } );
+
+    return { dataApiAsistencia }
   },
   data() {
+
+    /* const dataApiAsistencia = ref<Asistencia[]>([]);
+
+    const getDataAsignatura = async () => {
+      const fecha = "22-11-09";
+      try {
+        
+        const response = await getAsistenciaFecha(fecha)
+        dataApiAsistencia.value = response;
+        
+        console.log(dataApiAsistencia.value);
+        
+      } catch (error) {
+
+        console.log(error);
+      }
+      }
+
+    onMounted( () => { getDataAsignatura() } ); */
+
     return {
-      series: [44, 55,],
+      //series: [],
       chartOptions: {
         chart: {
           width: 380,
@@ -82,6 +121,7 @@ export default defineComponent({
         },
         labels: ['Asistentes', 'No Asistentes',],
         colors: ['#58D68D', '#EC7063'],
+        noData: {text: 'Loading...'},
         responsive: [{
           breakpoint: 480,
           options: {

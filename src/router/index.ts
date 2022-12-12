@@ -2,8 +2,14 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
 import PrincipalView from '../views/PrincipalView.vue';
 import CursoView from '../views/CursoView.vue';
+import LoginView from '../views/LoginView.vue';
+
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/login',
+    component: LoginView
+  },
   {
     path: '/',
     component: PrincipalView
@@ -18,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/:id',
-    component: () => import ('../views/FolderPage.vue')
+    component: CursoView
   },
 ]
 

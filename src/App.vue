@@ -5,24 +5,33 @@
     <ion-split-pane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
-          <ion-list id="inbox-list">
-            <ion-list-header>Rodolfo Canelon</ion-list-header>
-            <ion-note>rodolfo.canelon@ucentral.cl</ion-note>
+          <ion-menu-toggle>
+                <div v-for="item in dataApiProfesor" :key="item.rut">
+                  <ion-item router-direction="root" router-link="/" >
+                      <ion-label>
+                          <ion-header>
+                            <h1> <strong>{{ item.nombre }}</strong></h1> 
+                          </ion-header>
+                          <ion-note>{{ item.rut }}</ion-note>
+                      </ion-label>
+                  </ion-item>    
+                </div> 
+            </ion-menu-toggle>
+
   
-            <ion-menu-toggle auto-hide="false" v-for="(p, i) in appPages" :key="i">
-              <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.url" lines="none" detail="false" class="hydrated" :class="{ selected: selectedIndex === i }">
-                <ion-icon slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
-                <ion-label>{{ p.title }}</ion-label>
+            <ion-menu-toggle v-for="(p, i) in dataApiAsignaturas" :key="i">
+              <ion-item @click="selectedIndex = i" router-direction="root" :router-link="p.nombre" lines="none" class="hydrated" :class="{ selected: selectedIndex === i }">
+                <ion-icon slot="start" :ios="bookmarkOutline" :md="bookmarkOutline"></ion-icon>
+                <ion-label>{{ p.nombre }}</ion-label>
               </ion-item>
             </ion-menu-toggle>
-          </ion-list>
   
           <ion-list id="labels-list">
             <!-- <ion-list-header>Labels</ion-list-header> -->
           
 
-            <ion-menu-toggle auto-hide="false" >
-              <ion-item router-direction="root" router-link="/folder/Inbox" lines="none" detail="false" class="hydrated" >
+            <ion-menu-toggle  >
+              <ion-item router-direction="root" router-link="/folder/Inbox" lines="none" class="hydrated" >
               <ion-icon slot="start" ios="settingsOutline" md="settingsOutline"></ion-icon>
               <ion-label>Configuración</ion-label>
             </ion-item>
@@ -42,10 +51,13 @@
 
 <script lang="ts">
 //import { IonButton } from '@ionic/vue';
-import { IonApp, IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
-import { defineComponent, ref } from 'vue';
+import { IonApp, IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonMenu, IonMenuToggle, IonNote, IonRouterOutlet, IonSplitPane } from '@ionic/vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { archiveOutline, archiveSharp, bookmarkOutline, bookmarkSharp, bookOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, settingsOutline, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { Profesor } from './interfaces/Profesor';
+import { Asignatura } from './interfaces/Asignatura';
+import { getProfesor,getAsignaturas } from "@/services/ProfesorServices";
 
 export default defineComponent({
   name: 'App',
@@ -55,8 +67,7 @@ export default defineComponent({
     IonIcon, 
     IonItem, 
     IonLabel, 
-    IonList, 
-    IonListHeader, 
+    IonList,
     IonMenu, 
     IonMenuToggle, 
     IonNote, 
@@ -64,6 +75,46 @@ export default defineComponent({
     IonSplitPane,
   },
   setup() {
+
+    const dataApiProfesor = ref<Profesor[]>([]);
+    const dataApiAsignaturas = ref<Asignatura[]>([]);
+    
+
+    const getDataProfesor = async () => {
+
+      const rut = "26970671";
+      const password = "123456";
+      
+      try {
+        const response = await getProfesor(rut, password);
+        dataApiProfesor.value = response;
+        
+      } catch (error) {
+
+        console.log(error);
+      }
+    }
+
+    const getDataAsignatura = async () => {
+
+      const rut = "26970671";
+
+      try {
+        //const id_profesor = dataApiProfesor.value[0].id_profesor;
+        const response = await getAsignaturas(rut);
+        dataApiAsignaturas.value = response;
+        
+        console.log(dataApiAsignaturas.value);
+        
+      } catch (error) {
+
+        console.log(error);
+      }
+    }
+
+    onMounted( () => { getDataProfesor() } );
+    onMounted( () => { getDataAsignatura() } );
+
     const selectedIndex = ref(0);
     const appPages = [
       {
@@ -91,16 +142,6 @@ export default defineComponent({
         url: '/SIRF',
         iosIcon: bookOutline,
         mdIcon: bookOutline,     },
-      /* {
-        title: 'Trash',
-        url: '/folder/Trash',
-        iosIcon: bookOutline,        
-        mdIcon: bookOutline,   },
-      {
-        title: 'Spam',
-        url: '/folder/Spam',
-        iosIcon: bookOutline,
-        mdIcon: bookOutline,     } */
     ];
     //const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
     
@@ -129,6 +170,8 @@ export default defineComponent({
       trashSharp, 
       warningOutline, 
       warningSharp,
+      dataApiProfesor,
+      dataApiAsignaturas,
       isSelected: (url: string) => url === route.path ? 'selected' : ''
     }
   }
